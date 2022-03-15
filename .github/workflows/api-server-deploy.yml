@@ -1,0 +1,7 @@
+name: api-server-deploy
+on: [push]
+jobs:
+  api-server-deploy:
+    runs-on: self-hosted
+    steps:
+      - run: echo 'test'
