@@ -4,5 +4,6 @@ jobs:
   api-server-deploy:
     runs-on: self-hosted
     steps:
+      - run: pwd
       - run: echo 'test'
       - run: echo 'test'
