@@ -13,9 +13,7 @@ jobs:
 
       - name: cp
         run: cp -r ./* /home/opc/api-server/
-        
-      - name: cd
-        run: cd /home/opc/api-server/
 
       - name: yarn install
-        run: cyarn install
+        run: yarn install
+        working-directory: cd /home/opc/api-server/
