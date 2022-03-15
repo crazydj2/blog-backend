@@ -16,4 +16,4 @@ jobs:
 
       - name: yarn install
         run: yarn install
-        working-directory: cd /home/opc/api-server/
+        working-directory: /home/opc/api-server/
