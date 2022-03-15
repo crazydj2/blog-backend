@@ -7,3 +7,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+      - run: echo "There's a thing in my code!"
