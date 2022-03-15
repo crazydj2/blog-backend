@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     console.log('access......');
-    res.end();
+    res.end('Test......');
 });
 
 
