@@ -31,3 +31,4 @@ db.once('open', function(){
 mongoose.connect('mongodb://localhost/test');
 
 console.log('start......');
+console.log('start......');
