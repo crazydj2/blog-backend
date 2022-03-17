@@ -17,3 +17,7 @@ jobs:
       - name: yarn install
         run: yarn install
         working-directory: /home/opc/api-server/
+
+      - name: pm2 reload
+        run: pm2 reload ecosystem.config.cjs
+        working-directory: /home/opc/api-server/
