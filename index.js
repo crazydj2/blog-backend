@@ -21,14 +21,14 @@ const server = app.listen(port, () => {
 });
 
 // // CONNECT TO MONGODB SERVER
-const db = mongoose.connection;
-db.on('error', console.error);
-db.once('open', function(){
-    // CONNECTED TO MONGODB SERVER
-    console.log("Connected to mongod server");
-});
+mongoose
+    .connect('mongodb://localhost/blog-dㅔ')
+    .then(() => {
+        console.log('mogodb connect success!!!')
+    })
+    .catch(e => {
+        console.error('mogodb connect failed...');
+        console.error(e);
+    });
 
-mongoose.connect('mongodb://localhost/test');
-
-console.log('start......');
 console.log('start......');
