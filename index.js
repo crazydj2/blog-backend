@@ -2,6 +2,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import { logger } from 'morgan';
 
 import { initRouter } from './router/router.js';
 
@@ -10,12 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var myLogger = function (req, res, next) {
-    console.log(req);
-    next();
-};
-
-app.use(myLogger);
+app.use(logger('dev'));
 
 initRouter(app);
 
