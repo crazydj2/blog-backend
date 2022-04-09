@@ -20,7 +20,7 @@ app.listen(port, () => {
 
 // // CONNECT TO MONGODB SERVER
 mongoose
-    .connect('mongodb://localhost/blog-dㅔ')
+    .connect('mongodb://localhost/blog-dj')
     .then(() => {
         console.log('mogodb connect success!!!')
     })
