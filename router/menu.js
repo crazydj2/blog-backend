@@ -3,11 +3,13 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get("/menu", (req, res) => {
-    res.send("Test Menu Hello world");
+router.get("/", (req, res) => {
+    console.log('access menu......');
+    res.end("Test Menu Hello world");
 });
 
 router.post("/", (req, res) => {
+    console.log('access menu......');
     res.send("Test Menu Hello world");
 });
 
