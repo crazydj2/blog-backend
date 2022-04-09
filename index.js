@@ -2,7 +2,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import { logger } from 'morgan';
+import morgan from 'morgan';
 
 import { initRouter } from './router/router.js';
 
@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(logger('dev'));
+app.use(morgan('dev'));
 
 initRouter(app);
 
