@@ -16,6 +16,8 @@ export const create = data => {
     let success = false;
 
     try {
+        console.log(data);
+
         const menu = new MenuModel(data);
 
         success = true;
