@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 // PUT /menu
 // 하나의 메뉴 데이터 추가
 router.post("/", (req, res) => {
-    console.log('access menu......');
+    console.log('post menu......');
 
     const success = create(req.body);
 
