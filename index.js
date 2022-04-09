@@ -18,7 +18,7 @@ initRouter(app);
 // // [RUN SERVER]
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
- console.log("Express server has started on port " + port)
+    console.log("Express server has started on port " + port)
 });
 
 // // CONNECT TO MONGODB SERVER
@@ -31,5 +31,3 @@ mongoose
         console.error('mogodb connect failed...');
         console.error(e);
     });
-
-console.log('start......');
