@@ -7,7 +7,7 @@ const init = app => {
 
     app.get('/', (req, res) => {
         console.log('access......');
-        res.end('Test......');
+        res.end('TestTestTestTest......');
     });
 
     app.get('/menus', (req, res) => {
