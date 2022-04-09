@@ -15,7 +15,14 @@ router.get("/", (req, res) => {
 // 하나의 메뉴 데이터 추가
 router.post("/", (req, res) => {
     console.log('access menu......');
-    
+
+    try {
+        console.log(`req.body : ${req.body.test}`);
+    }
+    catch (e) {
+        console.error(e);
+    }
+
     res.send(req.body);
 });
 
