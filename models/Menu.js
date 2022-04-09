@@ -20,6 +20,13 @@ export const create = data => {
 
         const menu = new MenuModel(data);
 
+        menu.save().then(() => {
+            console.log('???????');
+        }).catch(e => {
+            console.log('???????');
+            console.error(e);
+        });
+
         success = true;
     } catch (e) {
         console.error(e);
