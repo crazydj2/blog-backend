@@ -1,9 +1,9 @@
 
-import menu from './menu';
+import menuRouter from './menu';
 
 
 const init = app => {
-    app.use('/menu', menu);
+    app.use('/menu', menuRouter);
 
     app.get('/', (req, res) => {
         console.log('access......');
