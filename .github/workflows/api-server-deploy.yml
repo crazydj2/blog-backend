@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: remove
-        run: rm -rf `ls | find . -name node_modules -prune -o -print`
-        working-directory: /home/opc/api-server/
+      # - name: remove
+      #   run: rm -rf `ls | find . -name node_modules -prune -o -print`
+      #   working-directory: /home/opc/api-server/
       
       - name: test
         run: ls | find . -name node_modules -prune -o -print
