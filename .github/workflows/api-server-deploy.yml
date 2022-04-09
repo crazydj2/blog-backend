@@ -19,6 +19,6 @@ jobs:
         run: yarn install
         working-directory: /home/opc/api-server/
 
-      - name: pm2 reload
-        run: -
+      - name: yarn reload
+        run: yarn reload
         working-directory: /home/opc/api-server/
