@@ -3,20 +3,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
+import { initRouter } from './router/router';
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    console.log('access......');
-    res.end('Test......');
-});
-
+initRouter(app);
 
 // // [RUN SERVER]
 const port = process.env.PORT || 8080;
-const server = app.listen(port, () => {
+app.listen(port, () => {
  console.log("Express server has started on port " + port)
 });
 
