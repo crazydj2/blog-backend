@@ -4,5 +4,9 @@
     "express": "^4.17.3",
     "mongoose": "^6.2.6"
   },
+  "scripts": {
+    "start": "pm2 start ecosystem.config.cjs",
+    "reload": "pm2 reload ecosystem.config.cjs"
+  },
   "type": "module"
 }
