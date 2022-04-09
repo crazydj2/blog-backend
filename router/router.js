@@ -1,5 +1,5 @@
 
-import menuRouter from './menu';
+import menuRouter from './menu.js';
 
 
 const init = app => {
