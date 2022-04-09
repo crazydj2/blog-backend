@@ -10,6 +10,13 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+var myLogger = function (req, res, next) {
+    console.log(req);
+    next();
+};
+
+app.use(myLogger);
+
 initRouter(app);
 
 // // [RUN SERVER]
