@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import MenuModel from '../models/Menu.js';
+import { create } from '../models/Menu.js';
 
 const router = Router();
 
@@ -16,14 +16,9 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     console.log('access menu......');
 
-    try {
-        console.log(`req.body : ${req.body.test}`);
-    }
-    catch (e) {
-        console.error(e);
-    }
+    const success = create(req.body);
 
-    res.send(req.body);
+    res.send(success);
 });
 
 export default router;

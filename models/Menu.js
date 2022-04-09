@@ -10,6 +10,24 @@ const menuSchema = new Schema({
     articles: { type: [Schema.Types.ObjectId] }
 });
 
+const MenuModel = mongoose.model('menu', menuSchema);
+
+const create = data => {
+    let success = false;
+
+    try {
+        const menu = new MenuModel(data);
+        
+        success = true;
+    } catch (e) {
+        console.error(e);
+    }
+
+    return success;
+};
+
 // Menu Model
 // - 'menu' -> collection 명
-export default mongoose.model('menu', menuSchema);
+export default {
+    create,
+};
