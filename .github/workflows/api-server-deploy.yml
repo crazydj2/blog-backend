@@ -8,9 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: test2
-        run: ls -a | grep -v -E "node_modules" | xargs rm -rf
-        working-directory: /home/opc/api-server/
+      # - name: test2
+      #   run: find /home/opc/api-server -name node_modules -prune -o -delete
+      
+      # - name: test
+      #   run: ls | find . -name node_modules -prune -o -print
+      #   working-directory: /home/opc/api-server/
 
       - name: cp
         run: cp -r ./* /home/opc/api-server/
