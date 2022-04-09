@@ -9,6 +9,11 @@ const init = app => {
         console.log('access......');
         res.end('Test......');
     });
+
+    app.get('/menus', (req, res) => {
+        console.log('access menus......');
+        res.end('Test menus......');
+    });
 };
 
 
