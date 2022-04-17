@@ -1,14 +1,17 @@
 
 import { Router } from 'express';
-import { create } from '../models/Menu.js';
+import { create, get } from '../models/Menu.js';
 
 const router = Router();
 
 // GET /menu
 // 모든 메뉴 데이터를 트리 형태로 만들어서 리턴 (JSON)
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
     console.log('access menu......');
-    res.end("Test Menu Hello world");
+    
+    const data = await get();
+
+    res.send({data});
 });
 
 // PUT /menu

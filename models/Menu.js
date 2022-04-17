@@ -17,7 +17,7 @@ export const create = async data => {
 
     console.log(data);
 
-    // data validate 코드 추가
+    // TODO data validate 코드 추가
 
     try {
         const menu = new MenuModel(data);
@@ -34,11 +34,15 @@ export const create = async data => {
 };
 
 export const get = async query => {
-    try {
-        const result = await MenuModel.find();
+    let data = null;
 
-        console.log(JSON.stringify(result));
+    console.log(`query is ${query}`);
+
+    try {
+        data = await MenuModel.find(query);
     } catch (e) {
         console.error(e);
     }
+
+    return data;
 };
