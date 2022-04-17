@@ -12,25 +12,33 @@ const menuSchema = new Schema({
 
 const MenuModel = mongoose.model('menu', menuSchema);
 
-export const create = data => {
+export const create = async data => {
     let success = false;
 
+    console.log(data);
+
+    // data validate 코드 추가
+
     try {
-        console.log(data);
-
         const menu = new MenuModel(data);
-
-        menu.save().then(() => {
-            console.log('???????');
-        }).catch(e => {
-            console.log('???????');
-            console.error(e);
-        });
+        menu.save();
 
         success = true;
+        
+        get();
     } catch (e) {
         console.error(e);
     }
 
     return success;
+};
+
+export const get = async query => {
+    try {
+        const result = await MenuModel.find();
+
+        console.log(JSON.stringify(result));
+    } catch (e) {
+        console.error(e);
+    }
 };

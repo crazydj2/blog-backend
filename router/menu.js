@@ -13,12 +13,12 @@ router.get("/", (req, res) => {
 
 // PUT /menu
 // 하나의 메뉴 데이터 추가
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     console.log('post menu......');
 
-    const success = create(req.body);
+    const success = await create(req.body);
 
-    res.send(success);
+    res.send({success});
 });
 
 export default router;
