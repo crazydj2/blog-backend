@@ -15,8 +15,6 @@ const MenuModel = mongoose.model('menu', menuSchema);
 export const create = async data => {
     let success = false;
 
-    console.log(data);
-
     // TODO data validate 코드 추가
 
     try {
@@ -35,8 +33,6 @@ export const create = async data => {
 
 export const get = async query => {
     let data = null;
-
-    console.log(`query is ${query}`);
 
     try {
         data = await MenuModel.find(query);
