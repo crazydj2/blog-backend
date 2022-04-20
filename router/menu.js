@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", async (req, res) => {
     console.log('get menu......');
     
-    const data = await get();
+    const data = await get(req.body);
 
     res.send({data});
 });
