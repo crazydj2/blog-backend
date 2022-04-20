@@ -59,9 +59,6 @@ export const patch = async (query, data) => {
     let success = false;
 
     try {
-        console.log(query);
-        console.log(data);
-
         await MenuModel.findOneAndUpdate(query, { $set: data });
 
         success = true;
