@@ -39,6 +39,8 @@ router.delete("/", async (req, res) => {
 router.patch("/", async (req, res) => {
     console.log('patch menu......');
 
+    console.log(req.body);
+
     const success = await patch(req.body?.query, req.body?.data);
 
     res.send({success});
