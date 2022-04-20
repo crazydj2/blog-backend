@@ -19,11 +19,9 @@ export const create = async data => {
 
     try {
         const menu = new MenuModel(data);
-        menu.save();
+        await menu.save();
 
         success = true;
-        
-        get();
     } catch (e) {
         console.error(e);
     }
@@ -41,4 +39,32 @@ export const get = async query => {
     }
 
     return data;
+};
+
+export const remove = async query => {
+    let success = false;
+
+    try {
+        await MenuModel.findOneAndDelete(query);
+
+        success = true;
+    } catch (e) {
+        console.error(e);
+    }
+
+    return success;
+};
+
+export const patch = async (query, data) => {
+    let success = false;
+
+    try {
+        await MenuModel.findOneAndUpdate(query, { $set: data });
+
+        success = true;
+    } catch (e) {
+        console.error(e);
+    }
+
+    return success;
 };
