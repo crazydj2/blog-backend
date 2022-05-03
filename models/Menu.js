@@ -80,7 +80,13 @@ export const remove = async query => {
 
             console.log(parentMenu);
 
-            parentMenu.children = parentMenu.children.filter(id => id !== menu._id);
+            parentMenu.children = parentMenu.children.filter(id => {
+                console.log(`id: ${id}, menu._id: ${menu._id}, is equal??? --> ${id !== menu._id}`);
+                return id !== menu._id;
+            });
+
+            console.log(parentMenu.children);
+
             await parentMenu.save();
         }
 
