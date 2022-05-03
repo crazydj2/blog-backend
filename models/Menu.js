@@ -70,22 +70,28 @@ export const remove = async query => {
     let success = false;
 
     try {
-        const menu = await MenuModel.findOneAndDelete(query);
+        // 타겟의 자식 메뉴들까지 다 지우기
+        const menu = await MenuModel.find(query);
+        let targets = [menu];
 
-        console.log(menu);
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].children?.length > 0) {
+                arr = arr.concat(arr[i].children);
+            }
+        }
+
+        targets = targets.map(t => t._id);
+
+        console.log(targets);
+
+        await MenuModel.deleteMany({_id: targets});
 
         // 부모 메뉴에서 자기 자신 지우기
         if (menu.parent) {
             const parentMenu = await MenuModel.findById(menu.parent);
 
-            console.log(parentMenu);
-
-            parentMenu.children = parentMenu.children.filter(id => {
-                console.log(`id: ${id}, menu._id: ${menu._id}, is equal??? --> ${id !== menu._id}`);
-                return id.equals(menu._id);
-            });
-
-            console.log(parentMenu.children);
+            // ObjectId 타입이기 때문에 equals 로만 비교함
+            parentMenu.children = parentMenu.children.filter(id => !id.equals(menu._id));
 
             await parentMenu.save();
         }
