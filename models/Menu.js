@@ -16,12 +16,13 @@ export const create = async data => {
     let success = false;
 
     const { name, parent } = data;
+    let parentMenu = null;
     let siblingNames = [];    
 
     try {
         // parent 가 있을 경우
         if (parent) {
-            const parentMenu = await MenuModel.findById(parent);
+            parentMenu = await MenuModel.findById(parent);
             if (!parentMenu) {
                 return false;
             }
@@ -38,6 +39,12 @@ export const create = async data => {
 
         const menu = new MenuModel(data);
         await menu.save();
+
+        // parent 가 있는 경우, parent 의 children 에 추가되어야 함;
+        if (parentMenu) {
+            parentMenu.children.push(menu._id);
+            await parentMenu.save();
+        }
 
         success = true;
     } catch (e) {
