@@ -27,10 +27,12 @@ export const create = async data => {
                 return false;
             }
 
-            siblingNames = parentMenu.children.map(child => child.name);
+            siblingNames = (await MenuModel.find({_id: parentMenu.children})).map(child => child.name);
         } else {
             siblingNames = (await MenuModel.find({parent: null})).map(child => child.name);
         }
+
+
     
         // 같은 이름의 메뉴가 있는지 검사
         if (siblingNames.includes(name)) {
@@ -83,11 +85,7 @@ export const remove = async query => {
             }
         }
 
-        console.log(targets);
-
         targets = targets.map(t => t._id);
-
-        console.log(targets);
 
         await MenuModel.deleteMany({_id: targets});
 
