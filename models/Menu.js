@@ -15,25 +15,23 @@ const MenuModel = mongoose.model('menu', menuSchema);
 export const create = async data => {
     let success = false;
 
-    // TODO data validate 코드 추가
-    // TODO parent 가 있을때, parent 에도 자식 메뉴 추가해야함 (path)
-
     const { name, parent } = data;
     let siblingNames = [];    
 
     try {
         // parent 가 있을 경우
         if (parent) {
-            const parentMenu = await MenuModel.findById(parent).exec();
+            const parentMenu = await MenuModel.findById(parent);
             if (!parentMenu) {
                 return false;
             }
 
             siblingNames = parentMenu.children.map(child => child.name);
         } else {
-            siblingNames = (await MenuModel.find({parent: null}).exec()).map(child => child.name);
+            siblingNames = (await MenuModel.find({parent: null})).map(child => child.name);
         }
     
+        // 같은 이름의 메뉴가 있는지 검사
         if (siblingNames.includes(name)) {
             return false;
         }
@@ -53,7 +51,7 @@ export const get = async query => {
     let data = null;
 
     try {
-        data = await MenuModel.find(query).exec();
+        data = await MenuModel.find(query);
     } catch (e) {
         console.error(e);
     }

@@ -5,7 +5,7 @@ import { create, get, remove, patch } from '../models/Menu.js';
 const router = Router();
 
 // GET /menu
-// 모든 메뉴 데이터를 트리 형태로 만들어서 리턴 (JSON)
+// 모든 메뉴 데이터를 리스트로 리턴 (본디 트리 구조이긴 하나 이건 클라이언트에게 맡기자)
 router.get("/", async (req, res) => {
     console.log('get menu......');
     
