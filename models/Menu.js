@@ -16,10 +16,32 @@ export const create = async data => {
     let success = false;
 
     // TODO data validate 코드 추가
+    // TODO parent 가 있을때, parent 에도 자식 메뉴 추가해야함 (path)
+
+    const { name, parent } = data;
+    let siblingNames = [];    
 
     try {
-        const menu = new MenuModel(data);
-        await menu.save();
+        // parent 가 있을 경우
+        if (parent) {
+            const parentMenu = await MenuModel.findById(parent).exec();
+            console.log(parentMenu);
+            if (!parentMenu) {
+                return;
+            }
+
+            siblingNames = parentMenu.children.map(child => child.name);
+        } else {
+            siblingNames = (await MenuModel.find({parent: null}).exec()).map(child => child.name);
+        }
+    
+        if (siblingNames.includes(name)) {
+            return false;
+        }
+
+        // test
+        // const menu = new MenuModel(data);
+        // await menu.save();
 
         success = true;
     } catch (e) {
@@ -33,7 +55,7 @@ export const get = async query => {
     let data = null;
 
     try {
-        data = await MenuModel.find(query);
+        data = await MenuModel.find(query).exec();
     } catch (e) {
         console.error(e);
     }
