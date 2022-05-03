@@ -42,7 +42,7 @@ export const create = async data => {
 
         // parent 가 있는 경우, parent 의 children 에 추가되어야 함;
         if (parentMenu) {
-            parentMenu.children.push(menu);
+            parentMenu.children.push(menu._id);
             await parentMenu.save();
         }
 
@@ -70,7 +70,9 @@ export const remove = async query => {
     let success = false;
 
     try {
-        await MenuModel.findOneAndDelete(query);
+        const menu = await MenuModel.findOneAndDelete(query);
+
+        console.log(menu);
 
         success = true;
     } catch (e) {
