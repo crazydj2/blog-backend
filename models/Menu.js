@@ -42,7 +42,7 @@ export const create = async data => {
 
         // parent 가 있는 경우, parent 의 children 에 추가되어야 함;
         if (parentMenu) {
-            parentMenu.children.push(menu._id);
+            parentMenu.children.push(menu);
             await parentMenu.save();
         }
 
