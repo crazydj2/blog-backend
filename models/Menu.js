@@ -74,9 +74,9 @@ export const remove = async query => {
         const menu = await MenuModel.find(query);
         let targets = [menu];
 
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].children?.length > 0) {
-                arr = arr.concat(arr[i].children);
+        for (let i = 0; i < targets.length; i++) {
+            if (targets[i].children?.length > 0) {
+                targets = targets.concat(targets[i].children);
             }
         }
 
