@@ -25,9 +25,8 @@ export const create = async data => {
         // parent 가 있을 경우
         if (parent) {
             const parentMenu = await MenuModel.findById(parent).exec();
-            console.log(parentMenu);
             if (!parentMenu) {
-                return;
+                return false;
             }
 
             siblingNames = parentMenu.children.map(child => child.name);
@@ -39,9 +38,8 @@ export const create = async data => {
             return false;
         }
 
-        // test
-        // const menu = new MenuModel(data);
-        // await menu.save();
+        const menu = new MenuModel(data);
+        await menu.save();
 
         success = true;
     } catch (e) {
