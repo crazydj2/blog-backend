@@ -72,7 +72,12 @@ export const remove = async query => {
     try {
         const menu = await MenuModel.findOneAndDelete(query);
 
-        console.log(menu);
+        // 부모 메뉴에서 자기 자신 지우기
+        if (menu.parent) {
+            const parentMenu = await MenuModel.findById(parent);
+            parentMenu.children = parentMenu.children?.filter(id => id !== menu.id);
+            await parentMenu.save();
+        }
 
         success = true;
     } catch (e) {
