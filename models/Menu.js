@@ -74,7 +74,7 @@ export const remove = async query => {
 
         // 부모 메뉴에서 자기 자신 지우기
         if (menu.parent) {
-            const parentMenu = await MenuModel.findById(parent);
+            const parentMenu = await MenuModel.findById(menu.parent);
             parentMenu.children = parentMenu.children?.filter(id => id !== menu.id);
             await parentMenu.save();
         }
