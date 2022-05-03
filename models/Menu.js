@@ -72,6 +72,9 @@ export const remove = async query => {
     try {
         // 타겟의 자식 메뉴들까지 다 지우기
         const menu = await MenuModel.find(query);
+
+        console.log(menu);
+
         let targets = [menu];
 
         for (let i = 0; i < targets.length; i++) {
