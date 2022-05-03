@@ -31,9 +31,6 @@ export const create = async data => {
         } else {
             siblingNames = (await MenuModel.find({parent: null})).map(child => child.name);
         }
-
-        console.log(siblingNames);
-
     
         // 같은 이름의 메뉴가 있는지 검사
         if (siblingNames.includes(name)) {
