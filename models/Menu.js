@@ -23,6 +23,9 @@ export const create = async data => {
         // parent 가 있을 경우
         if (parent) {
             parentMenu = await MenuModel.findById(parent);
+
+            console.log(parentMenu);
+
             if (!parentMenu) {
                 return false;
             }
