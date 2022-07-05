@@ -46,7 +46,7 @@ export const create = async data => {
 // query 는 _id 혹은 parent 만 허용
 // parent 가 있을 경우에는 모든 자식 메뉴들도 다 대상임.
 // 둘 다 없음 all
-export const get = async (query = {}) => {
+export const get = async query => {
     let data = null;
 
     console.log(query);
