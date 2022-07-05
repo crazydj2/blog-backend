@@ -50,7 +50,7 @@ export const get = async query => {
     let data = null;
 
     try {
-        const lastQuery = {};
+        let lastQuery = {};
 
         if (!query?._id?.length > 0) {
             lastQuery._id = query?._id;
@@ -58,9 +58,10 @@ export const get = async query => {
 
         if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
-
             lastQuery.parent = [...targets, ...children].map(p => p._id);
         }
+
+        lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
 
         data = await MenuModel.find(lastQuery);
     } catch (e) {
