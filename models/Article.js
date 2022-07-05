@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { get as getMenu, getMenusAndAllChildren } from '../models/Menu.js';
+import { get as getMenu } from '../models/Menu.js';
 
 const Schema = mongoose.Schema;
  
