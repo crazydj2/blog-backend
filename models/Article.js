@@ -53,7 +53,7 @@ export const get = async query => {
         let lastQuery = {};
 
         if (!query?._id?.length > 0) {
-            lastQuery._id = query?._id;
+            lastQuery._id = query._id;
         }
 
         if (query?.parent) {
@@ -62,6 +62,8 @@ export const get = async query => {
         }
 
         lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
+
+        console.log(lastQuery);
 
         data = await MenuModel.find(lastQuery);
     } catch (e) {
