@@ -67,13 +67,19 @@ export const get = async query => {
     return data;
 };
 
+// 무조건 _id 기준
 // TODO 검증은 나중에......
 export const remove = async query => {
     let success = false;
 
     try {
+        const _id = query?._id;
+        if (!_id || _id.length === 0) {
+            return false;
+        }
+
         // 타겟의 자식 메뉴들까지 다 지우기
-        let { targets, children } = getMenusAndAllChildren(query);
+        let { targets, children } = getMenusAndAllChildren({ _id });
 
         await MenuModel.deleteMany({_id: [...targets, ...children].map(t => t._id)});
 
@@ -107,16 +113,18 @@ export const remove = async query => {
     return success;
 };
 
+// 무조건 _id 기준
 // TODO 검증은 나중에......
 export const patch = async (query, data) => {
     let success = false;
 
     try {
-        if (!query?._id) {
+        const _id = query?._id;
+        if (!_id || _id.length === 0) {
             return false;
         }
 
-        await MenuModel.findOneAndUpdate(query, { $set: data });
+        await MenuModel.findOneAndUpdate({ _id }, { $set: data });
 
         success = true;
     } catch (e) {

@@ -68,55 +68,47 @@ export const get = async query => {
     return data;
 };
 
+// 무조건 _id 로
+// TODO 검증은 나중에
 export const remove = async query => {
     let success = false;
 
-    // try {
-    //     // 타겟의 자식 메뉴들까지 다 지우기
-    //     const menu = await MenuModel.find(query);
+    try {
+        const _id = query?._id;
+        if (!_id || _id.length === 0) {
+            return false;
+        }
 
-    //     let targets = [...menu];
+        // 타겟의 자식 메뉴들까지 다 지우기
+        const targets = await MenuModel.find({ _id });
 
-    //     for (let i = 0; i < targets.length; i++) {
-    //         if (targets[i].children?.length > 0) {
-    //             const childrenMenu = await MenuModel.find({_id: targets[i].children});
+        await MenuModel.deleteMany({_id: targets.map(t => t._id)});
 
-    //             targets = targets.concat(childrenMenu);
-    //         }
-    //     }
-
-    //     targets = targets.map(t => t._id);
-
-    //     await MenuModel.deleteMany({_id: targets});
-
-    //     // 부모 메뉴에서 자기 자신 지우기
-    //     if (menu.parent) {
-    //         const parentMenu = await MenuModel.findById(menu.parent);
-
-    //         // ObjectId 타입이기 때문에 equals 로만 비교함
-    //         parentMenu.children = parentMenu.children.filter(id => !id.equals(menu._id));
-
-    //         await parentMenu.save();
-    //     }
-
-    //     success = true;
-    // } catch (e) {
-    //     console.error(e);
-    // }
+        success = true;
+    } catch (e) {
+        console.error(e);
+    }
 
     return success;
 };
 
+// 무조건 _id 로
+// TODO 검증은 나중에
 export const patch = async (query, data) => {
     let success = false;
 
-    // try {
-    //     await MenuModel.findOneAndUpdate(query, { $set: data });
+    try {
+        const _id = query?._id;
+        if (!_id || _id.length === 0) {
+            return false;
+        }
 
-    //     success = true;
-    // } catch (e) {
-    //     console.error(e);
-    // }
+        await MenuModel.findOneAndUpdate({ _id }, { $set: data });
+
+        success = true;
+    } catch (e) {
+        console.error(e);
+    }
 
     return success;
 };
