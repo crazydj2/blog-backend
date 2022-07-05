@@ -52,10 +52,9 @@ export const get = async query => {
     try {
         const lastQuery = {};
 
-        if (!!query?._id || query?._id.length > 0) {
+        if (!query?._id?.length > 0) {
             lastQuery._id = query?._id;
         }
-        
 
         if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
@@ -78,7 +77,7 @@ export const remove = async query => {
 
     try {
         const _id = query?._id;
-        if (!_id || _id.length === 0) {
+        if (!_id?.length !== 0) {
             return false;
         }
 
@@ -102,7 +101,7 @@ export const patch = async (query, data) => {
 
     try {
         const _id = query?._id;
-        if (!_id || _id.length === 0) {
+        if (!_id?.length !== 0) {
             return false;
         }
 

@@ -74,7 +74,7 @@ export const remove = async query => {
 
     try {
         const _id = query?._id;
-        if (!_id || _id.length === 0) {
+        if (!_id?.length !== 0) {
             return false;
         }
 
@@ -120,7 +120,7 @@ export const patch = async (query, data) => {
 
     try {
         const _id = query?._id;
-        if (!_id || _id.length === 0) {
+        if (!_id?.length !== 0) {
             return false;
         }
 
