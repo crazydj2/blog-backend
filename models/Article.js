@@ -49,19 +49,16 @@ export const create = async data => {
 export const get = async query => {
     let data = null;
 
-    console.log(query);
-
     try {
-        const lastQuery = query;
+        const lastQuery = {};
 
-        if (query && query.parent) {
+        lastQuery._id = query?._id;
+
+        if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
 
             lastQuery.parent = [...targets, ...children].map(p => p._id);
         }
-
-        console.log(lastQuery);
-        
 
         data = await MenuModel.find(lastQuery);
     } catch (e) {
