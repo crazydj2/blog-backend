@@ -52,7 +52,10 @@ export const get = async query => {
     try {
         const lastQuery = {};
 
-        lastQuery._id = query?._id;
+        if (!!query?._id || query?._id.length > 0) {
+            lastQuery._id = query?._id;
+        }
+        
 
         if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
