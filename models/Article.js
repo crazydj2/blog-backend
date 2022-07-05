@@ -54,11 +54,11 @@ export const get = async (query = {}) => {
     try {
         let parents = [];
 
-        if (query.parent) {
-            const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
+        // if (query.parent) {
+        //     const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
 
-            parents = [...targets, ...children].map(p => p._id);
-        }
+        //     parents = [...targets, ...children].map(p => p._id);
+        // }
 
         console.log(parents);
 
