@@ -61,7 +61,6 @@ export const get = async (query = {}) => {
         }
 
         console.log(parents);
-        
 
         data = await MenuModel.find({...query, parent: parents});
     } catch (e) {
