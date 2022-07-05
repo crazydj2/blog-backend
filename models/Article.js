@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 // Article Schema
 const articleSchema = new Schema({
     title: { type: String, required: true },
-    contents: { type: Schema.Types.ObjectId, required: true },
+    contents: { type: Schema.Types.String, required: true },
     created: { type: Date },
     parent: { type: Schema.Types.ObjectId, required: true }
 });
