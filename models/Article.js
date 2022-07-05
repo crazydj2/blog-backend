@@ -25,16 +25,12 @@ export const create = async data => {
         // parent check
         const parents = await getMenu({ _id: parent});
 
-        console.log(parents);
-
         if (parents?.length !== 1) {
             return false;
         }
 
         // set created
         data.create = (new Date()).getTime();
-
-        console.log(data);
 
         const article = new MenuModel(data);
         await article.save();

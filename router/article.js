@@ -1,17 +1,17 @@
 
 import { Router } from 'express';
-import { create } from '../models/Article.js';
+import { create, get } from '../models/Article.js';
 
 const router = Router();
 
 // GET /article
 // 모든 메뉴 데이터를 리스트로 리턴 (본디 트리 구조이긴 하나 이건 클라이언트에게 맡기자)
 router.get("/", async (req, res) => {
-    // console.log('get article......');
+    console.log('get article......');
     
-    // const data = await get(req.body);
+    const data = await get(req.body);
 
-    // res.send({data});
+    res.send({data});
 });
 
 // POST /article
