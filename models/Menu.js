@@ -136,6 +136,8 @@ export const patch = async (query, data) => {
 
 // target 메뉴들 + 자신의 모든 자식 메뉴들을 array 로 리턴
 export const getMenusAndAllChildren = async query => {
+    console.log('###################### getMenusAndAllChildren');
+
     let targets = [];
     let children = [];
 
@@ -157,6 +159,11 @@ export const getMenusAndAllChildren = async query => {
         targets = [];
         children = [];
     }
+
+    console.log(targets);
+    console.log(children);
+
+    console.log('######################');
 
     return { targets, children };
 }

@@ -60,6 +60,7 @@ export const get = async query => {
 
         if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
+
             lastQuery.parent = [...targets, ...children].map(p => p._id);
         }
 
