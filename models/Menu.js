@@ -138,6 +138,8 @@ export const patch = async (query, data) => {
 export const getMenusAndAllChildren = async query => {
     console.log('###################### getMenusAndAllChildren');
 
+    console.log(query);
+
     let targets = [];
     let children = [];
 
