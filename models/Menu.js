@@ -80,10 +80,12 @@ export const remove = async query => {
         const parentMap = {};
 
         // 타겟의 부모 메뉴에서 자기 자신 지우기
-        targets.map(target => {
+        for (let i = 0; i < targets.length; i++) {
+            const target = targets[i];
+
             if (target.parent) {
                 if (!parentMap[target.parent]) {
-                    parentMap[target.parent] = await MenuModel.findById(menu.parent);
+                    parentMap[target.parent] = await MenuModel.findById(target.parent);
                 }
 
                 const parentMenu = parentMap[target.parent];
@@ -91,7 +93,7 @@ export const remove = async query => {
                 // ObjectId 타입이기 때문에 equals 로만 비교함
                 parentMenu.children = parentMenu.children.filter(id => !id.equals(target._id));
             }
-        });
+        }
 
         for (const parentMenu of parentMap) {
             await parentMenu.save();
