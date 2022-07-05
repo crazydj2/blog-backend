@@ -5,11 +5,12 @@ import { create, get, remove, patch } from '../models/Menu.js';
 const router = Router();
 
 // GET /menu
-// 모든 메뉴 데이터를 리스트로 리턴 (본디 트리 구조이긴 하나 이건 클라이언트에게 맡기자)
+// query 에 맞는 메뉴 데이터를 리스트로 리턴 - query 가 존재하지 않으면 All
+// response 는 1차원 array - 본디 트리 구조이긴 하나 이건 클라이언트에게 맡기자
 router.get("/", async (req, res) => {
     console.log('get menu......');
     
-    const data = await get(req.body);
+    const data = await get(req.query);
 
     res.send({data});
 });
@@ -25,7 +26,7 @@ router.post("/", async (req, res) => {
 });
 
 // DELETE /menu
-// 하나의 메뉴 데이터 삭제
+// 하나 이상의 메뉴 데이터 삭제
 router.delete("/", async (req, res) => {
     console.log('delete menu......');
 
@@ -35,7 +36,7 @@ router.delete("/", async (req, res) => {
 });
 
 // PATCH /menu
-// 하나의 메뉴 데이터 추가
+// 하나의 메뉴 데이터 수정 (반드시 query 에 _id 항목 존재해야 함)
 router.patch("/", async (req, res) => {
     console.log('patch menu......');
 

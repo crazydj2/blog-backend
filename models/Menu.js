@@ -24,8 +24,6 @@ export const create = async data => {
         if (parent) {
             parentMenu = await MenuModel.findById(parent);
 
-            console.log(parentMenu);
-
             if (!parentMenu) {
                 return false;
             }
@@ -69,34 +67,33 @@ export const get = async query => {
     return data;
 };
 
+// TODO 검증은 나중에......
 export const remove = async query => {
     let success = false;
 
     try {
         // 타겟의 자식 메뉴들까지 다 지우기
-        const menu = await MenuModel.find(query);
+        let { targets, children } = getMenusAndAllChildren(query);
 
-        let targets = [...menu];
+        await MenuModel.deleteMany({_id: [...targets, ...children].map(t => t._id)});
 
-        for (let i = 0; i < targets.length; i++) {
-            if (targets[i].children?.length > 0) {
-                const childrenMenu = await MenuModel.find({_id: targets[i].children});
+        const parentMap = {};
 
-                targets = targets.concat(childrenMenu);
+        // 타겟의 부모 메뉴에서 자기 자신 지우기
+        targets.map(target => {
+            if (target.parent) {
+                if (!parentMap[target.parent]) {
+                    parentMap[target.parent] = await MenuModel.findById(menu.parent);
+                }
+
+                const parentMenu = parentMap[target.parent];
+
+                // ObjectId 타입이기 때문에 equals 로만 비교함
+                parentMenu.children = parentMenu.children.filter(id => !id.equals(target._id));
             }
-        }
+        });
 
-        targets = targets.map(t => t._id);
-
-        await MenuModel.deleteMany({_id: targets});
-
-        // 부모 메뉴에서 자기 자신 지우기
-        if (menu.parent) {
-            const parentMenu = await MenuModel.findById(menu.parent);
-
-            // ObjectId 타입이기 때문에 equals 로만 비교함
-            parentMenu.children = parentMenu.children.filter(id => !id.equals(menu._id));
-
+        for (const parentMenu of parentMap) {
             await parentMenu.save();
         }
 
@@ -108,10 +105,15 @@ export const remove = async query => {
     return success;
 };
 
+// TODO 검증은 나중에......
 export const patch = async (query, data) => {
     let success = false;
 
     try {
+        if (!query?._id) {
+            return false;
+        }
+
         await MenuModel.findOneAndUpdate(query, { $set: data });
 
         success = true;
@@ -121,3 +123,30 @@ export const patch = async (query, data) => {
 
     return success;
 };
+
+// target 메뉴들 + 자신의 모든 자식 메뉴들을 array 로 리턴
+export const getMenusAndAllChildren = async query => {
+    let targets = [];
+    let children = [];
+
+    try {
+        // 타겟의 자식 메뉴들까지 다 지우기
+        targets = await MenuModel.find(query);
+        children = [...targets];
+
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].children?.length > 0) {
+                const newChildren = await MenuModel.find({_id: children[i].children});
+                children = [...children, ...newChildren]
+            }
+        }
+
+        children = children.slice(targets.length);
+    } catch (e) {
+        console.error(e);
+        targets = [];
+        children = [];
+    }
+
+    return { targets, children };
+}
