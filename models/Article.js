@@ -51,10 +51,10 @@ export const get = async query => {
 
     try {
         console.log(query);
-        
+
         let lastQuery = {};
 
-        if (!query?._id?.length > 0) {
+        if (query?._id) {
             lastQuery._id = query._id;
         }
 
