@@ -50,6 +50,8 @@ export const get = async query => {
     let data = null;
 
     try {
+        console.log(query);
+        
         let lastQuery = {};
 
         if (!query?._id?.length > 0) {
