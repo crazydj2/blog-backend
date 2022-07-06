@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import { create, get } from '../models/Article.js';
+import { create, get, remove, patch } from '../models/Article.js';
 
 const router = Router();
 
@@ -27,21 +27,21 @@ router.post("/", async (req, res) => {
 // DELETE /article
 // 하나의 메뉴 데이터 삭제
 router.delete("/", async (req, res) => {
-    // console.log('delete article......');
+    console.log('delete article......');
 
-    // const success = await remove(req.body);
+    const success = await remove(req.body);
 
-    // res.send({success});
+    res.send({success});
 });
 
 // PATCH /article
 // 하나의 메뉴 데이터 추가
 router.patch("/", async (req, res) => {
-    // console.log('patch article......');
+    console.log('patch article......');
 
-    // const success = await patch(req.body?.query, req.body?.data);
+    const success = await patch(req.body?.query, req.body?.data);
 
-    // res.send({success});
+    res.send({success});
 });
 
 
