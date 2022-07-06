@@ -14,7 +14,7 @@ const articleSchema = new Schema({
 
 // Article Model
 // - 'marticleenu' -> collection 명
-const MenuModel = mongoose.model('article', articleSchema);
+const ArticleModel = mongoose.model('article', articleSchema);
 
 export const create = async data => {
     let success = false;
@@ -32,7 +32,7 @@ export const create = async data => {
         // set created
         data.create = (new Date()).getTime();
 
-        const article = new MenuModel(data);
+        const article = new ArticleModel(data);
         await article.save();
 
         success = true;
@@ -63,7 +63,7 @@ export const get = async query => {
 
         lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
 
-        data = await MenuModel.find(lastQuery);
+        data = await ArticleModel.find(lastQuery);
     } catch (e) {
         console.error(e);
     }
@@ -83,9 +83,9 @@ export const remove = async query => {
         }
 
         // 타겟의 자식 메뉴들까지 다 지우기
-        const targets = await MenuModel.find({ _id });
+        const targets = await ArticleModel.find({ _id });
 
-        await MenuModel.deleteMany({_id: targets.map(t => t._id)});
+        await ArticleModel.deleteMany({_id: targets.map(t => t._id)});
 
         success = true;
     } catch (e) {
@@ -106,7 +106,7 @@ export const patch = async (query, data) => {
             return false;
         }
 
-        await MenuModel.findOneAndUpdate({ _id }, { $set: data });
+        await ArticleModel.findOneAndUpdate({ _id }, { $set: data });
 
         success = true;
     } catch (e) {
