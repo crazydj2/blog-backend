@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
     let success = false;
 
     try {
-        const password = fs.readFileSync("admin-password.dat", "utf8");
+        const password = fs.readFileSync("admin-password.dat", "utf8").trim();
 
         console.log(`####${password}#####${req.body}####${req.body.password === password}`);
 
