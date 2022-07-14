@@ -15,7 +15,7 @@ jobs:
         run: cp -r ./* /home/opc/api-server/
 
       - name: cp-admin
-        run: cp -r /home/opc/api-server/admin-password.dat /home/opc/api-server/
+        run: cp -r /home/opc/admin-password.dat /home/opc/api-server/
 
       - name: yarn install
         run: yarn install
