@@ -14,8 +14,6 @@ router.post("/", async (req, res) => {
     try {
         const password = fs.readFileSync("admin-password.dat", "utf8").trim();
 
-        console.log(`####${password}#####${req.body}####${req.body.password === password}`);
-
         if (req.body.password && req.body.password === password) {
             success = true;
         }
