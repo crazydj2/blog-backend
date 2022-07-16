@@ -87,7 +87,7 @@ export const remove = async body => {
 
         await MenuModel.deleteMany({_id: allTarget});
 
-        const parentMap = WeakMap();
+        const parentMap = new WeakMap();
 
         // 타겟의 부모 메뉴에서 자기 자신 지우기
         for (let i = 0; i < targets.length; i++) {
