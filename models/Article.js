@@ -71,14 +71,24 @@ export const get = async query => {
     return data;
 };
 
-// 무조건 _id 로, "" or []
+// 무조건 _id or parent 로만 , "" or []
 export const remove = async body => {
     let success = false;
 
     try {
-        const _id = body._id;
+        const query = {};
 
-        const targets = await ArticleModel.find({ _id });
+        const { _id, parent } = body;
+
+        if (_id) {
+            query._id = _id;
+        }
+
+        if (parent) {
+            query.parent = parent;
+        }
+        
+        const targets = await ArticleModel.find(query);
 
         await ArticleModel.deleteMany({_id: targets.map(t => t._id)});
 

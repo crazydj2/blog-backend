@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { remove as removeArticle } from './Article.js';
+
 const Schema = mongoose.Schema;
  
 // Menu Schema
@@ -81,7 +83,9 @@ export const remove = async query => {
         // 타겟의 자식 메뉴들까지 다 지우기
         let { targets, children } = getMenusAndAllChildren({ _id });
 
-        await MenuModel.deleteMany({_id: [...targets, ...children].map(t => t._id)});
+        const allTarget = [...targets, ...children].map(t => t._id);
+
+        await MenuModel.deleteMany({_id: allTarget});
 
         const parentMap = {};
 
@@ -104,6 +108,9 @@ export const remove = async query => {
         for (const parentMenu of parentMap) {
             await parentMenu.save();
         }
+
+        // 타겟들의 글 삭제
+        removeArticle({parent: allTarget});
 
         success = true;
     } catch (e) {
