@@ -149,6 +149,8 @@ export const getMenusAndAllChildren = async query => {
     let targets = [];
     let children = [];
 
+    console.log(query);
+
     try {
         // 타겟의 자식 메뉴들까지 다 지우기
         targets = await MenuModel.find(query);
