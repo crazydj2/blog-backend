@@ -76,16 +76,14 @@ export const get = async query => {
 export const remove = async body => {
     let success = false;
 
-    console.log(body);
-
     try {
-        const _id = body?._id;
-        if (!_id?.length !== 0) {
-            return false;
-        }
+        const _id = body._id;
 
-        // 타겟의 자식 메뉴들까지 다 지우기
+        console.log(_id);
+
         const targets = await ArticleModel.find({ _id });
+
+        console.log(targets.map(t => t._id));
 
         await ArticleModel.deleteMany({_id: targets.map(t => t._id)});
 
