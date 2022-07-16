@@ -87,25 +87,25 @@ export const remove = async body => {
 
         await MenuModel.deleteMany({_id: allTarget});
 
-        const parentMap = {};
+        const parentMap = WeakMap();
 
         // 타겟의 부모 메뉴에서 자기 자신 지우기
         for (let i = 0; i < targets.length; i++) {
             const target = targets[i];
 
             if (target.parent) {
-                if (!parentMap[target.parent]) {
-                    parentMap[target.parent] = await MenuModel.findById(target.parent);
+                if (!parentMap.has(target.parent)) {
+                    parentMap.set(target.parent, await MenuModel.findById(target.parent));
                 }
 
-                const parentMenu = parentMap[target.parent];
+                const parentMenu = parentMap.get(target.parent);
 
                 // ObjectId 타입이기 때문에 equals 로만 비교함
                 parentMenu.children = parentMenu.children.filter(id => !id.equals(target._id));
             }
         }
 
-        console.log(parentMap);
+        console.log(parentMap)
 
         for (const parentMenu of parentMap) {
             await parentMenu.save();
