@@ -60,6 +60,8 @@ export const create = async data => {
 export const get = async query => {
     let data = null;
 
+    console.log(query);
+
     try {
         data = await MenuModel.find(query);
     } catch (e) {
