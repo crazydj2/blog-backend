@@ -105,8 +105,6 @@ export const remove = async body => {
             }
         }
 
-        console.log(parentMap)
-
         for (let key in parentMap) {
             const parentMenu = parentMap[key];
             await parentMenu.save();
@@ -149,12 +147,9 @@ export const getMenusAndAllChildren = async query => {
     let targets = [];
     let children = [];
 
-    console.log(query);
-
     try {
         // 타겟의 자식 메뉴들까지 다 지우기
         targets = await MenuModel.find(query);
-        console.log(targets);
         children = [...targets];
 
         for (let i = 0; i < children.length; i++) {
