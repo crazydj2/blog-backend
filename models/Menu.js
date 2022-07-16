@@ -60,8 +60,6 @@ export const create = async data => {
 export const get = async query => {
     let data = null;
 
-    console.log(query);
-
     try {
         data = await MenuModel.find(query);
     } catch (e) {
@@ -85,9 +83,6 @@ export const remove = async body => {
         // 타겟의 자식 메뉴들까지 다 지우기
         let { targets, children } = await getMenusAndAllChildren({ _id });
 
-        console.log(targets);
-        console.log(children);
-
         const allTarget = [...targets, ...children].map(t => t._id);
 
         await MenuModel.deleteMany({_id: allTarget});
@@ -109,6 +104,8 @@ export const remove = async body => {
                 parentMenu.children = parentMenu.children.filter(id => !id.equals(target._id));
             }
         }
+
+        console.log(parentMap);
 
         for (const parentMenu of parentMap) {
             await parentMenu.save();
