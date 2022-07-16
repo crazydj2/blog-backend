@@ -76,6 +76,8 @@ export const get = async query => {
 export const remove = async body => {
     let success = false;
 
+    console.log(body);
+
     try {
         const _id = body?._id;
         if (!_id?.length !== 0) {
