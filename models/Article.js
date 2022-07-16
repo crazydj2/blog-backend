@@ -71,19 +71,14 @@ export const get = async query => {
     return data;
 };
 
-// 무조건 _id 로
-// TODO 검증은 나중에
+// 무조건 _id 로, "" or []
 export const remove = async body => {
     let success = false;
 
     try {
         const _id = body._id;
 
-        console.log(_id);
-
         const targets = await ArticleModel.find({ _id });
-
-        console.log(targets.map(t => t._id));
 
         await ArticleModel.deleteMany({_id: targets.map(t => t._id)});
 
