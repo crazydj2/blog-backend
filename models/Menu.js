@@ -83,6 +83,9 @@ export const remove = async body => {
         // 타겟의 자식 메뉴들까지 다 지우기
         let { targets, children } = getMenusAndAllChildren({ _id });
 
+        console.log(targets);
+        console.log(children);
+
         const allTarget = [...targets, ...children].map(t => t._id);
 
         await MenuModel.deleteMany({_id: allTarget});
