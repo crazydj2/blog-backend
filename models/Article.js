@@ -71,7 +71,7 @@ export const get = async query => {
     return data;
 };
 
-// 무조건 _id or parent 로만 , "" or []
+// 무조건 _id or parent 로만 , "" or ["", ...]
 export const remove = async body => {
     let success = false;
 

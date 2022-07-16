@@ -69,14 +69,14 @@ export const get = async query => {
     return data;
 };
 
-// 무조건 _id 기준
+// 무조건 _id 기준, "" 아니면 ["", ...]
 // TODO 검증은 나중에......
-export const remove = async query => {
+export const remove = async body => {
     let success = false;
 
     try {
-        const _id = query?._id;
-        if (!_id?.length !== 0) {
+        const _id = body._id;
+        if (_id.length === 0) {
             return false;
         }
 
