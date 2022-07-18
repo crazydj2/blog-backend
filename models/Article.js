@@ -63,7 +63,7 @@ export const get = async query => {
 
         if (query?.keyword) {
             const reg = new RegExp(`.*${query?.keyword}.*`, 'g');
-            lastQuery.name = { $regex: reg};
+            lastQuery.title = { $regex: reg};
         }
 
         lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
