@@ -68,8 +68,6 @@ export const get = async query => {
 
         console.log(lastQuery);
 
-        lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
-
         data = await ArticleModel.find(lastQuery);
     } catch (e) {
         console.error(e);
