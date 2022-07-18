@@ -66,8 +66,6 @@ export const get = async query => {
             lastQuery.title = { $regex: reg};
         }
 
-        console.log(lastQuery);
-
         data = await ArticleModel.find(lastQuery);
     } catch (e) {
         console.error(e);
