@@ -11,7 +11,9 @@ router.get("/", async (req, res) => {
     
     const data = await get(req.query);
 
-    res.send({data});
+    const success = !!data;
+
+    res.send({success, data});
 });
 
 // POST /article
