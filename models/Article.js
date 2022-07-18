@@ -61,6 +61,11 @@ export const get = async query => {
             lastQuery.parent = [...targets, ...children].map(p => p._id);
         }
 
+        if (query?.keyword) {
+            const reg = new RegExp(`.*${query?.keyword}.*`, 'g');
+            lastQuery.name = { $regex: reg};
+        }
+
         lastQuery = lastQuery._id || lastQuery.parent ? lastQuery : null;
 
         data = await ArticleModel.find(lastQuery);
