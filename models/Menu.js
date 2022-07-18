@@ -126,6 +126,9 @@ export const remove = async body => {
 export const patch = async (query, data) => {
     let success = false;
 
+    console.log(query);
+    console.log(data);
+
     try {
         const _id = query?._id;
         if (!_id?.length !== 0) {
