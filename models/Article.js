@@ -50,23 +50,32 @@ export const get = async query => {
     let data = null;
 
     try {
-        let lastQuery = {};
+        const findQuery = {};
 
         if (query?._id) {
-            lastQuery._id = query._id;
+            findQuery._id = query._id;
         }
 
         if (query?.parent) {
             const { targets, children } = await getMenusAndAllChildren({ _id: query.parent });
-            lastQuery.parent = [...targets, ...children].map(p => p._id);
+            findQuery.parent = [...targets, ...children].map(p => p._id);
         }
 
         if (query?.keyword) {
             const reg = new RegExp(`.*${query?.keyword}.*`, 'g');
-            lastQuery.title = { $regex: reg};
+            findQuery.title = { $regex: reg};
         }
 
-        data = await ArticleModel.find(lastQuery);
+        const sortQuery = {};
+
+        if (query?.order) {
+            sortQuery[query.order] = query.orderBy === 'DESC' ? -1 : 1;
+        }
+
+        const pageSize = query?.pageSize ? query.pageSize : 0;
+        const page = query?.page ? query.page : 0;
+
+        data = await ArticleModel.find(findQuery).sort(sortQuery).skip(page * pageSize).limit(pageSize);
     } catch (e) {
         console.error(e);
     }
