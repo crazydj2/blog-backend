@@ -30,7 +30,7 @@ export const create = async data => {
         }
 
         // set created
-        data.create = (new Date()).getTime();
+        data.created = (new Date()).getTime();
 
         const article = new ArticleModel(data);
         await article.save();
