@@ -119,7 +119,7 @@ export const patch = async (query, data) => {
 
     try {
         const _id = query?._id;
-        if (!_id?.length !== 0) {
+        if (_id.length === 0) {
             return false;
         }
 
